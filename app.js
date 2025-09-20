@@ -19,7 +19,7 @@
             </ol>
           </div>
         </div>
-      </div>`; 
+      </div>`;
     return;
   }
 
@@ -34,10 +34,10 @@
     menu:`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>`
   };
 
-  let state='learning'; // можна змінити на 'home' після перевірки
+  let state='home'; // стартуємо з Головної
   window.setState = (s)=>{ state=s; render(); };
 
-  function headerBlock(title='Навчання'){
+  function headerBlock(title){
     const today = new Date().toLocaleDateString('uk-UA', {day:'2-digit', month:'long', year:'numeric'});
     const weekday = new Date().toLocaleDateString('uk-UA', {weekday:'long'});
     return `<div class="header">
@@ -62,6 +62,7 @@
     </div>`;
   }
 
+  // ----- ВЕРХНІЙ ПІДБАР лише для "Навчання"
   function subnavLearning(){
     const tabs = ['Результати','Домашки','Розклад','Показники','Аналітика'];
     return `<div class="subnavWrap">
@@ -72,6 +73,7 @@
     </div>`;
   }
 
+  // ----- Діаграма-«пончик» для «Відвідування»
   function donutSVG(pct){
     const r=30, c=2*Math.PI*r, off=c*(1-pct);
     return `<svg class="donut" viewBox="0 0 80 80">
@@ -82,6 +84,7 @@
     </svg>`;
   }
 
+  // ----- Картки «Динаміка» (як у v12)
   function dynCards(){
     const list = (title)=>`
       <div class="dynCard dynWhite">
@@ -133,16 +136,69 @@
     return card1 + card2 + card3 + card4;
   }
 
+  // ----- РЕНДЕР ЕКРАНІВ
   function render(){
     const app = document.getElementById('app');
+
     if (state==='learning'){
-      app.innerHTML = `<div class="screen">` + headerBlock('Навчання') + subnavLearning() + `
-        <div class="section"><h3>Динаміка</h3></div>
-        <div class="section"><div class="hScroll">` + dynCards() + `</div></div>
-      ` + bottomNav('learning') + `</div>`;
+      app.innerHTML = `<div class="screen">`
+        + headerBlock('Навчання')
+        + subnavLearning()
+        + `<div class="section"><h3>Динаміка</h3></div>
+           <div class="section"><div class="hScroll">` + dynCards() + `</div></div>`
+        + bottomNav('learning')
+        + `</div>`;
       return;
     }
-    app.innerHTML = `<div class="screen">` + headerBlock('Головна') + `<div class="bigCard"><h2>Сьогодні вихідний</h2></div>` + bottomNav('home') + `</div>`;
+
+    if (state==='home'){
+      app.innerHTML = `<div class="screen">`
+        + headerBlock('Головна')
+        + `<div class="bigCard"><h2>Сьогодні вихідний</h2></div>`
+        + bottomNav('home')
+        + `</div>`;
+      return;
+    }
+
+    if (state==='media'){
+      const cards = [
+        {title:'Рефлексія як інструмент самопізнання і кра...', tag:'рефлексія', meta:'2:53'},
+        {title:'Інклюзивність', tag:'Інклюзивність', meta:'4 епізоди'},
+        {title:'Дія для...', tag:'Дія', meta:'1:20'}
+      ];
+      app.innerHTML = `<div class="screen">`
+        + headerBlock('Цікаве')
+        + `<div class="section"><h3>Контент</h3></div>
+           <div class="section"><div class="grid">
+             ${cards.map(c=>`
+               <div class="card">
+                 <div class="badge">${c.tag}</div>
+                 <div style="height:84px;border-radius:12px;background:#e8eefc;margin:8px 0"></div>
+                 <div style="display:flex;justify-content:space-between;align-items:center">
+                   <div style="font-weight:800">${c.title}</div>
+                   <div style="font-size:12px;color:#5d6b81">${c.meta}</div>
+                 </div>
+               </div>`).join('')}
+           </div></div>`
+        + bottomNav('media')
+        + `</div>`;
+      return;
+    }
+
+    if (state==='menu'){
+      const items = ['Твої вчителі','QR-сканер','Налаштування','Пристрої','Питання та відповіді','Команда підтримки Мрії','Оцінити застосунок'];
+      app.innerHTML = `<div class="screen">`
+        + headerBlock('Меню')
+        + `<div class="section" style="padding-bottom:110px">
+             ${items.map(label=>`<div class="listItem"><span>${label}</span><span>›</span></div>`).join('')}
+             <button class="buttonPrimary" onclick="alert('Вихід (демо)')">Вийти</button>
+             <div class="small">Версія 1.6.0 (демо)</div>
+           </div>`
+        + bottomNav('menu')
+        + `</div>`;
+      return;
+    }
   }
+
   render();
 })();
