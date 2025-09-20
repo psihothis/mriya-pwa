@@ -1,5 +1,5 @@
 
-const VERSION = 'v12-2';
+const VERSION = 'v12-3';
 const CACHE = `mriya-cache-${VERSION}`;
 const ASSETS = ['index.html','app.js'];
 self.addEventListener('install', e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))); self.skipWaiting(); });
