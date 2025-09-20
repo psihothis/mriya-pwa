@@ -10,7 +10,7 @@
   }, { passive: false });
 
   // Працюємо лише коли додано на ДГ
-  const INSTALLED_ONLY = true;
+  const INSTALLED_ONLY = false;
   const IS_STANDALONE =
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
