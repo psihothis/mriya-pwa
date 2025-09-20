@@ -11,33 +11,32 @@
   <title>Мрія — електронний щоденник</title>
   <style>
     :root{--blue:#1a6bff;--blue2:#0f57f7;--ink:#0b1221;--nav-h:88px}
-    *{box-sizing:border-box;-webkit-tap-highlight-color: transparent} html,body{margin:0;padding:0}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent} html,body{margin:0;padding:0}
     html,body{height:100svh;height:100dvh;min-height:100%}
     body{background:linear-gradient(180deg,var(--blue),var(--blue2));color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto;-webkit-font-smoothing:antialiased;overscroll-behavior:none;touch-action:manipulation;-webkit-text-size-adjust:100%}
     #app{display:flex;flex-direction:column;min-height:100%}
     .screen{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
-    /* Fixed bottom nav */
+    /* Bottom nav fixed */
     .navWrap{position:fixed;left:0;right:0;bottom:0;z-index:10}
     .navShadow{height:12px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.1));opacity:.12}
     .nav{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));backdrop-filter:blur(20px);background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.34));border-top:1px solid rgba(255,255,255,.45)}
     .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 0;text-decoration:none;color:#fff;font-size:12px;font-weight:800;border-radius:14px}
-    .tab svg{width:22px;height:22px}
-    .tab.active{background:rgba(255,255,255,.25)}
-    /* Header, cards */
-    .header{ padding: 16px 16px 6px; padding-top: calc(env(safe-area-inset-top) + 6px); }
-    .greeting{ font-weight:900; font-size: 30px; line-height:1.08; margin: 6px 0 8px; letter-spacing:-.2px }
-    .dateRow{ display:flex; align-items:center; gap:10px; margin:2px 0 12px; opacity:.96 }
-    .dateBtn{ width:34px; height:34px; border-radius:12px; background:rgba(255,255,255,.22); display:grid; place-items:center; border:1px solid rgba(255,255,255,.20) }
-    .dateText{ font-weight:700; font-size:16px }
-    .bigCard{ margin: 0 16px 16px; padding: 18px 20px; background: linear-gradient(160deg, rgba(255,255,255,.22), rgba(255,255,255,.10)); border: 1px solid rgba(255,255,255,.22); border-radius: 22px; box-shadow: 0 10px 24px rgba(13,34,79,.14) }
-    .bigCard h2{ margin:0; font-size:22px }
-    .section{ padding: 10px 16px } .section h3{ font-size:20px; margin:8px 0 10px }
-    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
-    .card{ background:#fff; color:var(--ink); border-radius:16px; padding:12px; box-shadow:0 10px 24px rgba(13,34,79,.14) }
-    .badge{ display:inline-block; background:#eaf1ff; color:#0b49c9; padding:5px 10px; border-radius:999px; font-weight:800; font-size:12px }
-    .listItem{ background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.22); border-radius:16px; padding:13px 14px; margin:8px 0; display:flex; justify-content:space-between; align-items:center }
-    .buttonPrimary{ display:block; width:100%; margin:16px 0; padding:12px 16px; border-radius:999px; background:#fff; color:#1546a6; border:none; font-weight:800 }
-    .small{ font-size:12px; opacity:.9; text-align:center }
+    .tab svg{width:22px;height:22px}.tab.active{background:rgba(255,255,255,.25)}
+    /* Header */
+    .header{padding:16px 16px 6px;padding-top:calc(env(safe-area-inset-top) + 6px)}
+    .greeting{font-weight:900;font-size:30px;line-height:1.08;margin:6px 0 8px;letter-spacing:-.2px}
+    .dateRow{display:flex;align-items:center;gap:10px;margin:2px 0 12px;opacity:.96}
+    .dateBtn{width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.22);display:grid;place-items:center;border:1px solid rgba(255,255,255,.20)}
+    .dateText{font-weight:700;font-size:16px}
+    .bigCard{margin:0 16px 16px;padding:18px 20px;background:linear-gradient(160deg, rgba(255,255,255,.22), rgba(255,255,255,.10));border:1px solid rgba(255,255,255,.22);border-radius:22px;box-shadow:0 10px 24px rgba(13,34,79,.14)}
+    .bigCard h2{margin:0;font-size:22px}
+    .section{padding:10px 16px}.section h3{font-size:20px;margin:8px 0 10px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .card{background:#fff;color:var(--ink);border-radius:16px;padding:12px;box-shadow:0 10px 24px rgba(13,34,79,.14)}
+    .badge{display:inline-block;background:#eaf1ff;color:#0b49c9;padding:5px 10px;border-radius:999px;font-weight:800;font-size:12px}
+    .listItem{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:13px 14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+    .buttonPrimary{display:block;width:100%;margin:16px 0;padding:12px 16px;border-radius:999px;background:#fff;color:#1546a6;border:none;font-weight:800}
+    .small{font-size:12px;opacity:.9;text-align:center}
     /* Gate */
     .gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;text-align:center}
     .gate .box{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:18px;color:#fff;max-width:520px}
@@ -49,9 +48,23 @@
     .pill{flex:0 0 auto;scroll-snap-align:center;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.25);font-weight:800}
     .pill.active{background:#fff;color:#143b99;border-color:#fff}
     /* Horizontal "Динаміка" */
-    .hScroll{overflow:auto;white-space:nowrap;gap:12px;display:flex;padding-bottom:2px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
-    .dynCard{flex:0 0 78%;background:#fff;color:var(--ink);border-radius:18px;padding:14px;box-shadow:0 10px 24px rgba(13,34,79,.14);scroll-snap-align:start}
+    .hScroll{overflow:auto;display:flex;gap:12px;padding-bottom:2px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+    .dynCard{flex:0 0 85%;border-radius:24px;scroll-snap-align:start}
     @media (min-width:480px){ .dynCard{flex-basis:60%} }
+    /* Specific dynamic cards */
+    .dynBlue{background:linear-gradient(180deg,#4e8cff,#3578ff);color:#fff;border:1px solid rgba(255,255,255,.3);box-shadow:0 16px 30px rgba(12,34,84,.28);padding:22px 20px;position:relative;overflow:hidden}
+    .dynBlue h3{font-size:24px;margin:0 0 14px 0;font-weight:900}
+    .dynBlue .bigRow{display:flex;align-items:center;gap:14px;margin:6px 0 16px}
+    .dynBlue .bigNum{font-size:76px;font-weight:800;letter-spacing:1px}
+    .dynBlue .blob{position:absolute;left:0;right:0;bottom:-14px;height:52%;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.08));border-radius:28px;filter:blur(.2px)}
+    .dynWhite{background:#fff;color:var(--ink);box-shadow:0 12px 26px rgba(12,34,84,.16);padding:18px}
+    .dynWhite h3{margin:0 0 10px 0;font-size:26px;line-height:1.1;font-weight:800}
+    .muted{color:#5d6b81}
+    .list{margin-top:8px;border-top:1px solid #e7ecf7}
+    .row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid #e7ecf7}
+    .row:last-child{border-bottom:none}
+    .grade{color:#1a55ff;font-weight:800}
+    .donut{width:72px;height:72px}
   </style>
 </head>
 <body>
